@@ -12,5 +12,8 @@ jobs:
       - name: checkout source code
         uses: actions/checkout@master
 
-      - name: echo Hello
-        run: echo "Hello"
+      - name: Install Dependencies
+        run: yarn install
+
+      - name: Build
+        run: yarn build
