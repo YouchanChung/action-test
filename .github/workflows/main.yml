@@ -26,3 +26,15 @@ jobs:
 
       - name: Build
         run: yarn build
+
+      - name: Compress build files
+        run: tar -czvf build.tar.gz ./build/*
+
+      - name: Copy compress file to remote
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: build.tar.gz
+          remote: build.tar.gz
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PASSWORD }}
