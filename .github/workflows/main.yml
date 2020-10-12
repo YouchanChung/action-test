@@ -27,14 +27,22 @@ jobs:
       - name: Build
         run: yarn build
 
-      - name: Compress build files
-        run: tar -czvf build.tar.gz ./build/*
+      - name: Public IP
+        id: ip
+        uses: haythem/public-ip@v1.2
 
-      - name: Copy compress file to remote
-        uses: garygrossgarten/github-action-scp@release
-        with:
-          local: build.tar.gz
-          remote: build.tar.gz
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          password: ${{ secrets.PASSWORD }}
+      - name: Print public IP
+        run: |
+          echo ${{ steps.ip.outputs.ipv4 }}
+          echo ${{ steps.ip.outputs.ipv6 }}
+      # - name: Compress build files
+      #   run: tar -czvf build.tar.gz ./build/*
+
+      # - name: Copy compress file to remote
+      #   uses: garygrossgarten/github-action-scp@release
+      #   with:
+      #     local: build.tar.gz
+      #     remote: build.tar.gz
+      #     host: ${{ secrets.HOST }}
+      #     username: ${{ secrets.USER }}
+      #     password: ${{ secrets.PASSWORD }}
